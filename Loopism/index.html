@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!-- The page left at the old address (the-dango.github.io/loopism/) once the game moved to
+     loopism.ca. Not part of the game: it goes in its own small public repo named
+     "loopism", with tools/redirect/sw.js beside it. It sends this device's saved game,
+     settings, bests and daily results across in the link (ui.js takes them in on arrival),
+     switches off the old address's service worker and its kept copies, then moves on. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loopism has moved</title>
+<meta name="build" content="moved">
+<link rel="canonical" href="https://loopism.ca/">
+<style>
+  :root { color-scheme: light dark; }
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #E8F2FB; color: #15122A;
+         font: 18px/1.5 system-ui, sans-serif; text-align: center; padding: 16px; box-sizing: border-box; }
+  @media (prefers-color-scheme: dark) { body { background: #15122A; color: #E8F2FB; } a { color: #9fd0ff; } }
+</style>
+</head>
+<body>
+<p>Loopism has moved to <a id="go" href="https://loopism.ca/">loopism.ca</a>.<br>Taking you there…</p>
+<script>
+(async function () {
+  var target = 'https://loopism.ca/', carry = {};
+  try {
+    Object.keys(localStorage).forEach(function (k) { if (k.indexOf('loopism-') === 0) carry[k] = localStorage.getItem(k); });
+  } catch (e) {}
+  if (Object.keys(carry).length) target += '#carry=' + encodeURIComponent(JSON.stringify(carry));
+  document.getElementById('go').href = target;
+  try {
+    if (navigator.serviceWorker) {
+      var regs = await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(function (r) { return r.unregister(); }));
+    }
+    if (window.caches) { var keys = await caches.keys(); await Promise.all(keys.map(function (k) { return caches.delete(k); })); }
+  } catch (e) {}
+  location.replace(target);
+})();
+</script>
+</body>
+</html>
