@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<!-- The page left at the old address (the-dango.github.io/loopism/) once the game moved to
-     loopism.ca. Not part of the game: it goes in its own small public repo named
-     "loopism", with tools/redirect/sw.js beside it. It sends this device's saved game,
+<!-- The page left at the old address (the-dango.github.io/Loopism/) once the game moved to
+     loopism.ca. Not part of the game: a copy of it and of tools/redirect/sw.js lives in the
+     public repo the-dango.github.io, in Loopism/ (and loopism/). It sends this device's saved game,
      settings, bests and daily results across in the link (ui.js takes them in on arrival),
      switches off the old address's service worker and its kept copies, then moves on. -->
 <html lang="en">
@@ -9,7 +9,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loopism has moved</title>
-<meta name="build" content="moved">
+<meta name="build" content="999.0 · moved to loopism.ca">
+<!-- Higher than any real build on purpose: a copy of the game still open at the old address
+     checks this page for a newer build now and then, sees this one, and reloads (on the
+     menu, never mid-puzzle), which brings it here and on to loopism.ca. -->
 <link rel="canonical" href="https://loopism.ca/">
 <style>
   :root { color-scheme: light dark; }
